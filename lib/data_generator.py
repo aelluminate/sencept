@@ -56,7 +56,7 @@ def generate_synthetic_data(num_rows=1000, year=None):
             tier_discount_percentage + coupon_discount_percentage
         )
         total_discount = round(total_purchase * (total_discount_percentage / 100), 2)
-        total_purchase_after_discount = total_purchase - total_discount
+        total_purchase_after_discount = round(total_purchase - total_discount, 2)
 
         product_category = np.random.choice(
             product_categories_list,
