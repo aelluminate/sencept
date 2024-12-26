@@ -21,17 +21,23 @@ def is_special_event(date):
 
 def generate_synthetic_data(num_rows=1000, month=None, year=None):
     data = []
+    existing_users = {}
 
     for _ in tqdm(range(num_rows), desc="Generating data", unit="record"):
 
-        user_id = f"******{random.randint(1000, 9999)}"
-        phone_number = f"+63*****{random.randint(000000, 999999)}"
-        age = random.randint(18, 65)
-        sex = random.choice(["M", "F", "O"])
+        if np.random.random() < 0.1 and existing_users:
+            user_id, phone_number = random.choice(list(existing_users.items()))
+        else:
+            user_id = f"U{random.randint(1000000, 9999999)}"
+            phone_number = f"+63{random.randint(1000000, 9999999)}"
+            existing_users[user_id] = phone_number
+
+        age = np.random.randint(18, 65)
+        sex = np.random.choice(["M", "F", "O"])
         join_date = fake.date_between(start_date="-5y", end_date="today")
 
-        order_id = f"******{random.randint(1000, 9999)}"
-        total_purchase = round(random.uniform(100, 10000), 2)
+        order_id = f"******{np.random.randint(1000, 9999)}"
+        total_purchase = round(np.random.uniform(100, 10000), 2)
 
         if year and month:
             start_date = datetime(year, month, 1)
@@ -50,15 +56,17 @@ def generate_synthetic_data(num_rows=1000, month=None, year=None):
 
         purchase_time = fake.time()
         purchased_at = f"{purchase_date} {purchase_time}"
-        payment_method = random.choice(["credit", "debit", "cash"])
+        payment_method = np.random.choice(["credit", "debit", "cash"])
 
-        loyalty_program_member = random.choice([0, 1])
-        loyalty_tier = random.choice([1, 2, 3, 4]) if loyalty_program_member else None
+        loyalty_program_member = np.random.choice([0, 1])
+        loyalty_tier = (
+            np.random.choice([1, 2, 3, 4]) if loyalty_program_member else None
+        )
         tier_discount_percentage = {1: 3, 2: 5, 3: 7, 4: 10}.get(loyalty_tier, 0)
 
         coupon_discount_percentage = 0
         if is_special_event(purchase_date):
-            coupon_discount_percentage = random.randint(2, 5)
+            coupon_discount_percentage = np.random.randint(2, 5)
 
         total_discount_percentage = (
             tier_discount_percentage + coupon_discount_percentage
@@ -71,8 +79,8 @@ def generate_synthetic_data(num_rows=1000, month=None, year=None):
             replace=False,
             p=product_categories_weights,
         )
-        purchase_medium = random.choice(["online", "in-store"])
-        customer_exp_rating = random.randint(1, 5)
+        purchase_medium = np.random.choice(["online", "in-store"])
+        customer_exp_rating = np.random.randint(1, 5)
 
         release_date = fake.date_between(
             start_date=purchase_date, end_date=purchase_date + timedelta(days=3)
