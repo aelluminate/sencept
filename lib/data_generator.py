@@ -19,7 +19,7 @@ def is_special_event(date):
     return False
 
 
-def generate_synthetic_data(num_rows=1000, year=None):
+def generate_synthetic_data(num_rows=1000, month=None, year=None):
     data = []
 
     for _ in tqdm(range(num_rows), desc="Generating data", unit="record"):
@@ -33,7 +33,15 @@ def generate_synthetic_data(num_rows=1000, year=None):
         order_id = f"******{random.randint(1000, 9999)}"
         total_purchase = round(random.uniform(100, 10000), 2)
 
-        if year:
+        if year and month:
+            start_date = datetime(year, month, 1)
+            end_date = (
+                datetime(year, month + 1, 1) - timedelta(days=1)
+                if month < 12
+                else datetime(year, 12, 31)
+            )
+            purchase_date = fake.date_between(start_date=start_date, end_date=end_date)
+        elif year:
             start_date = datetime(year, 1, 1)
             end_date = datetime(year, 12, 31)
             purchase_date = fake.date_between(start_date=start_date, end_date=end_date)
