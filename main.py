@@ -14,7 +14,7 @@ if __name__ == "__main__":
     current_datetime = datetime.now().strftime("%Y%m%d_%H%M%S")
     output_dir = "data/generated/"
     output_path = (
-        f"{output_dir}/synthetic_data_{current_datetime}_{num_rows_to_generate}.csv"
+        f"{output_dir}synthetic_data_{current_datetime}_{num_rows_to_generate}.csv"
     )
 
     # Create the directory if it doesn't exist
