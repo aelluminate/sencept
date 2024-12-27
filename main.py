@@ -1,11 +1,11 @@
 import os
-from utils.data_generator import generate_synthetic_data
+from utils.generators.synthetic import generate_synthetic_data
 from utils.file_operations import save_to_csv
 from datetime import datetime
 
 if __name__ == "__main__":
     # Change this number to generate rows
-    num_rows_to_generate = 294252
+    num_rows_to_generate = 423221
     month = 2
     year = 2024
 
