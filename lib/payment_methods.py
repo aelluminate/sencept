@@ -1,0 +1,15 @@
+payment_methods = [
+    "GCash",
+    "Maya",
+    "GrabPay",
+    "ShopeePay",
+    "Coins.ph",
+    "Visa (Credit)",
+    "Mastercard (Credit)",
+    "American Express",
+    "Visa (Debit)",
+    "Mastercard (Debit)",
+    "Cash",
+    "Bank Transfer",
+    "Over-the-counter (OTC)",
+]
