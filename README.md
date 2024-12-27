@@ -16,7 +16,7 @@
 ## Usage
 
 ### 1. Define Your Schema
-Create a JSON schema file (e.g., `generate.json`) to define the structure of your synthetic data and place it in the `schemas` directory. Here's an example schema:
+Create a JSON schema file (e.g., `generate.json`) to define the structure of your synthetic data and place it in the 📂 `schemas` directory. Here's an example schema:
 
 ```json
 {
@@ -53,6 +53,7 @@ Run the main.py script to generate synthetic data based on your schema:
 python -B -m main
 ```
 
+The generated data will be saved as a CSV file *(by default)* in the 📂 `data/generated` directory. You can customize the output directory and file name in the `main.py` script but the default is `data/generated/synthetic_data_<timestamp>_<num_rows_to_generate>.csv`.
 ### 3. Customize Generation
 
 You can customize the number of rows by modifying the main.py script:
@@ -77,6 +78,10 @@ Contributions are welcome! If you'd like to contribute to Sencept, please follow
 ## Contact
 
 For questions, feedback, or support, please open an issue on the this repository or contact the maintainer, [@noeyislearning](https://www.linkedin.com/in/noeyislearning/), directly.
+
+## 🔥 Activity 
+
+<img src="https://repobeats.axiom.co/api/embed/b13935418cfac1a18eb92baab7dc0a2663cda506.svg" alt="Repobeats analytics image" width="100%" />
 
 <br />
 
