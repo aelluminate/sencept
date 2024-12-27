@@ -2,7 +2,7 @@ import random
 import pandas as pd
 import numpy as np
 from faker import Faker
-from datetime import datetime
+from datetime import datetime, timedelta, time, date
 from tqdm import tqdm
 import logging
 
@@ -17,7 +17,7 @@ def generate_data_from_schema(schema, num_rows=1000):
     data = []
     existing_users = {}
 
-    logging.info("Starting data generation")
+    logging.info("[INFO] GENERATING DATA")
     for _ in tqdm(range(num_rows), desc="Generating data", unit="record"):
         row = {}
         parent_values = {}
@@ -55,6 +55,9 @@ def generate_data_from_schema(schema, num_rows=1000):
                 else:
                     value = fake.word()
             elif config["type"] == "number":
+                if "value" in config:
+                    row[column] = config["value"]
+                    continue
                 if "format" in config and "prefix" in config["format"]:
                     prefix = config["format"]["prefix"]
                     length = config.get("length", 6)
@@ -83,21 +86,47 @@ def generate_data_from_schema(schema, num_rows=1000):
                 else:
                     value = random.randint(0, 100)
             elif config["type"] == "date":
-                start_date = config.get("dates", {}).get("min", "2000-01-01")
-                end_date = config.get("dates", {}).get("max", "today")
+                if "dependency" in config:
+                    dependency_field = config["dependency"]["field"]
+                    offset_min = config["dependency"]["offset"]["min"]
+                    offset_max = config["dependency"]["offset"]["max"]
+                    if row.get(dependency_field) is not None:
+                        base_date = row[dependency_field]
+                        random_offset = random.randint(offset_min, offset_max)
+                        value = base_date + timedelta(days=random_offset)
+                    else:
+                        value = None
+                elif "value" in config:
+                    value = config["value"]
+                else:
+                    start_date = config.get("dates", {}).get("min", "2000-01-01")
+                    end_date = config.get("dates", {}).get("max", "today")
 
-                if end_date == "today":
-                    end_date = datetime.today().strftime("%Y-%m-%d")
+                    if end_date == "today":
+                        end_date = datetime.today().strftime("%Y-%m-%d")
 
-                try:
-                    start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
-                    end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
-                except ValueError as e:
-                    raise ValueError(
-                        f"Invalid date format in schema for column {column}: {e}"
-                    )
+                    try:
+                        start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
+                        end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
+                    except ValueError as e:
+                        raise ValueError(
+                            f"Invalid date format in schema for column {column}: {e}"
+                        )
 
-                value = fake.date_between(start_date=start_date, end_date=end_date)
+                    value = fake.date_between(start_date=start_date, end_date=end_date)
+            elif config["type"] == "time":
+                if "dependency" in config:
+                    dependency_field = config["dependency"]["field"]
+                    if row.get(dependency_field) is not None:
+                        value = row[dependency_field]
+                    else:
+                        value = None
+                else:
+                    value = time(
+                        hour=random.randint(0, 23),
+                        minute=random.randint(0, 59),
+                        second=random.randint(0, 59),
+                    ).strftime("%H:%M:%S")
             elif config["type"] == "boolean":
                 value = random.choice(config.get("choices", [0, 1]))
 
@@ -125,12 +154,20 @@ def generate_data_from_schema(schema, num_rows=1000):
                         else:
                             value = None
                     elif config["operation"] == "subtract":
-                        # Calculate total purchase after discount
-                        total_purchase = input_values[0]
-                        total_discount = input_values[1]
-                        if total_purchase is not None and total_discount is not None:
-                            value = total_purchase - total_discount
-                            value = round(value, 2)
+                        input_values = [v for v in input_values if v is not None]
+                        if len(input_values) == 2:
+                            value1, value2 = input_values
+                            if isinstance(value1, (date, datetime)) and isinstance(
+                                value2, (date, datetime)
+                            ):
+                                value = (value1 - value2).days
+                            elif isinstance(value1, (int, float)) and isinstance(
+                                value2, (int, float)
+                            ):
+                                value = value1 - value2
+                                value = round(value, 2)
+                            else:
+                                value = None
                         else:
                             value = None
 
@@ -157,5 +194,5 @@ def generate_data_from_schema(schema, num_rows=1000):
                 row[column] = None
 
         data.append(row)
-    logging.info("Data generation complete")
+    logging.info("[INFO] DATA GENERATION COMPLETE")
     return pd.DataFrame(data)
