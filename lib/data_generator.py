@@ -31,7 +31,7 @@ def generate_synthetic_data(num_rows=1000, month=None, year=None):
         user_id = f"****{random.randint(1000000, 9999999)}"
         phone_number = f"+63{random.randint(1000000, 9999999)}"
         age = np.random.randint(18, 65)
-        sex = np.random.choice(["M", "F", "O"])
+        sex = random.choices(["M", "F", "O"], k=1)[0]
         join_date = fake.date_between(start_date="-5y", end_date="today")
         payment_method = np.random.choice(
             [
