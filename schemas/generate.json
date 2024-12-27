@@ -1,0 +1,134 @@
+{
+    "user_id": {
+        "id": true,
+        "index": true,
+        "type": "number",
+        "unique": true,
+        "format": {
+            "prefix": "****"
+        },
+        "length": 6
+    },
+    "age": {
+        "type": "number",
+        "parent": "user_id",
+        "range": {
+            "min": 18,
+            "max": 60
+        }
+    },
+    "sex": {
+        "type": "string",
+        "parent": "user_id",
+        "choices": [
+            "M",
+            "F",
+            "O"
+        ],
+        "weight": "random"
+    },
+    "phone_number": {
+        "type": "number",
+        "unique": true,
+        "parent": "user_id",
+        "format": {
+            "prefix": "63"
+        },
+        "length": 10
+    },
+    "joined_date": {
+        "type": "date",
+        "parent": "user_id",
+        "dates": {
+            "min": "2024-01-01",
+            "max": "today"
+        }
+    },
+    "country": {
+        "type": "string",
+        "parent": "user_id",
+        "value": "Philippines"
+    },
+    "payment_method": {
+        "type": "string",
+        "choices": [
+            "GCash",
+            "Maya",
+            "GrabPay",
+            "ShopeePay",
+            "Coins.ph",
+            "Visa (Credit)",
+            "Mastercard (Credit)",
+            "American Express",
+            "Visa (Debit)",
+            "Mastercard (Debit)",
+            "Cash",
+            "Bank Transfer",
+            "Over-the-counter (OTC)"
+        ],
+        "weight": "random"
+    },
+    "loyalty_program_member": {
+        "type": "boolean",
+        "parent": "user_id",
+        "choices": [0, 1],
+        "weight": "random"
+    },
+    "loyalty_tier": {
+        "type": "string",
+        "parent": "user_id",
+        "choices": [1, 2, 3, 4],
+        "weight": "random",
+        "condition": {
+            "field": "loyalty_program_member",
+            "value": 1
+        }
+    },
+    "tier_discount_percentage": {
+        "type": "number",
+        "mapping": {
+            "field": "loyalty_tier",
+            "values": {
+                "1": 3,
+                "2": 5,
+                "3": 7,
+                "4": 10
+            }
+        },
+        "condition": {
+            "field": "loyalty_tier",
+            "values": [1, 2, 3, 4]
+        }
+    },
+    "coupon_discount_percentage": {
+        "type": "number",
+        "choices": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        "weight": "random",
+        "condition": {
+            "field": "payment_method",
+            "values": ["Visa (Credit)", "Mastercard (Credit)"]
+        }
+    },
+    "total_discount_percentage": {
+        "type": "number",
+        "inputs": ["tier_discount_percentage", "coupon_discount_percentage"],
+        "operation": "sum"
+    },
+    "total_purchase": {
+        "type": "number",
+        "range": {
+            "min": 50,
+            "max": 9999
+        }
+    },
+    "total_discount": {
+        "type": "number",
+        "inputs": ["total_discount_percentage", "total_purchase"],
+        "operation": "percentage"
+    },
+    "total_purchase_after_discount": {
+        "type": "number",
+        "inputs": ["total_purchase", "total_discount"],
+        "operation": "subtract"
+    }
+}
