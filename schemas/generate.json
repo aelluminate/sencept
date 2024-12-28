@@ -31,16 +31,16 @@
         "unique": true,
         "parent": "user_id",
         "format": {
-            "prefix": "63"
+            "prefix": "63**",
+            "suffix": "**"
         },
-        "length": 10
+        "length": 6
     },
     "joined_date": {
         "type": "date",
         "parent": "user_id",
         "dates": {
-            "min": "2024-01-01",
-            "max": "today"
+            "min": "2020-01-01"
         }
     },
     "country": {
@@ -51,19 +51,19 @@
     "payment_method": {
         "type": "string",
         "choices": [
-            "GCash",
-            "Maya",
-            "GrabPay",
-            "ShopeePay",
-            "Coins.ph",
-            "Visa (Credit)",
-            "Mastercard (Credit)",
-            "American Express",
-            "Visa (Debit)",
-            "Mastercard (Debit)",
-            "Cash",
-            "Bank Transfer",
-            "Over-the-counter (OTC)"
+            "gcash",
+            "maya",
+            "grabpay",
+            "shopeepay",
+            "coinsph",
+            "visa_c",
+            "mastercard_c",
+            "amex",
+            "visa_d",
+            "mastercard_d",
+            "cash",
+            "bank_transfer",
+            "otc"
         ],
         "weight": "random"
     },
@@ -106,18 +106,23 @@
             "values": [1, 2, 3, 4]
         }
     },
-    "coupon_discount_percentage": {
+    "card_discount_percentage": {
         "type": "number",
-        "choices": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        "choices": [1, 2, 3, 4, 5],
         "weight": "random",
         "condition": {
             "field": "payment_method",
-            "values": ["Visa (Credit)", "Mastercard (Credit)"]
+            "values": ["visa_c", "mastercard_c", "amex"]
         }
+    },
+    "coupon_discount_percentage": {
+        "type": "number",
+        "choices": [0, 1, 2, 3, 4, 5],
+        "weight": "random"
     },
     "total_discount_percentage": {
         "type": "number",
-        "inputs": ["tier_discount_percentage", "coupon_discount_percentage"],
+        "inputs": ["tier_discount_percentage", "card_discount_percentage", "coupon_discount_percentage"],
         "operation": "sum"
     },
     "total_purchase": {
@@ -141,7 +146,7 @@
         "id": true,
         "type": "number",
         "format": {
-            "prefix": "TXN"
+            "prefix": "***"
         },
         "length": 8
     },
@@ -151,9 +156,11 @@
     },
     "payment_date": {
         "type": "date",
-        "dates": {
-            "min": "2024-01-01",
-            "max": "today"
+        "dependency": {
+            "field": "joined_date",
+            "offset": {
+                "min": 1
+            }
         }
     },
     "payment_time": {
@@ -230,7 +237,7 @@
         "type": "number",
         "unique": true,
         "format": {
-            "prefix": "OR"
+            "prefix": "***"
         },
         "length": 6
     },
@@ -280,18 +287,21 @@
     "shipping_cost": {
         "type": "number",
         "range": {
-            "min": 5,
-            "max": 20
+            "min": 50,
+            "max": 300
         }
     },
     "tracking_number": {
         "id": true,
         "type": "number",
+        "alphanumeric": true,
+        "case": "uppercase",
         "unique": true,
         "format": {
-            "prefix": "TN"
+            "prefix": "***"
         },
         "length": 10
+        
     },
     "customer_exp_rating": {
         "type": "number",
