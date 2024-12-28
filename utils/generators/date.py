@@ -9,9 +9,12 @@ def generate_date(config, row):
     if "dependency" in config:
         dependency_field = config["dependency"]["field"]
         offset_min = config["dependency"]["offset"]["min"]
-        offset_max = config["dependency"]["offset"]["max"]
+        offset_max = config["dependency"]["offset"].get("max")
         if row.get(dependency_field) is not None:
             base_date = row[dependency_field]
+            if offset_max is None:
+                today = datetime.today().date()
+                offset_max = (today - base_date).days
             random_offset = random.randint(offset_min, offset_max)
             return base_date + timedelta(days=random_offset)
         else:
