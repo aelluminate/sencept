@@ -94,15 +94,17 @@ Specifies a custom format for generating values.
 
 **Properties**:
 - `prefix`: A prefix to prepend to the generated value.
+- `suffix`: A suffix to append to the generated value.
 - `length`: The length of the generated value (excluding the prefix).
 
 **Example**:
 ```json
-"user_id": {
+"phone_number": {
     "type": "number",
     "format": {
-        "prefix": "****",
-        "length": 6
+        "prefix": "63",
+        "suffix": "***",
+        "length": 7
     }
 }
 ```
@@ -114,7 +116,7 @@ Specifies a date range for generating date values.
 
 **Properties**:
 - `min`: The minimum date (format: YYYY-MM-DD).
-- `max`: The maximum date (format: YYYY-MM-DD or "today").
+- `max`: The maximum date (format: YYYY-MM-DD) or if not specified, the current date.
 
 **Example**:
 ```json
@@ -122,7 +124,6 @@ Specifies a date range for generating date values.
     "type": "date",
     "dates": {
         "min": "2024-01-01",
-        "max": "today"
     }
 }
 ```
@@ -135,6 +136,8 @@ Specifies that the value of this column depends on another column.
 **Properties**:
 - `field`: The column this field depends on.
 - `offset`: A range of days or time to add/subtract from the dependent field.
+    - `min`: The minimum offset.
+    - `max`: The maximum offset.
 
 **Example**:
 ```json
@@ -249,5 +252,44 @@ Example:
 "user_id": {
     "type": "number",
     "unique": true
+}
+```
+
+### 15. "`alphanumeric`" 🆕
+Specifies whether the generated value should be alphanumeric (letters and numbers).
+
+**Applicable Types**: `number`.
+
+**Default**: false
+
+**Example**:
+```json
+"tracking_number": {
+    "type": "number",
+    "format": {
+        "prefix": "TN"
+    },
+    "length": 10,
+    "alphanumeric": true
+}
+```
+
+### 16. "`case`" 🆕
+Specifies the case format of the generated string or alphanumeric value.
+
+**Applicable Types**: string, number (when alphanumeric is true).
+
+**Allowed Values**:
+
+- "`uppercase`": Converts the string to uppercase.
+- "`lowercase`": Converts the string to lowercase.
+- "`mixed`": Leaves the string as-is (default).
+
+
+**Example**:
+```json
+"product_name": {
+    "type": "string",
+    "case": "uppercase"
 }
 ```
