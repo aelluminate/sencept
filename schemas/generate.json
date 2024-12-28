@@ -138,7 +138,8 @@
         "operation": "subtract"
     },
     "transaction_id": {
-        "type": "string",
+        "id": true,
+        "type": "number",
         "format": {
             "prefix": "TXN"
         },
