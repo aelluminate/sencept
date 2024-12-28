@@ -1,19 +1,23 @@
 # Sencept
 
+![version](https://img.shields.io/badge/version-v0.2.1-black?style=for-the-badge&labelColor=%231f1f1e&color=%23f3f4f0)
+
 **Sencept** is a *quite* powerful framework for generating high-quality synthetic data. The name blends "synthesis" and "concept," reflecting the project's focus on conceptualizing and synthesizing realistic datasets for training and evaluating machine learning models. With Sencept, you can create customizable, schema-driven synthetic data that mimics real-world scenarios, making it ideal for testing, development, and research.
 
-## Features
+## ✨ Features
 
 - **Schema-Driven Data Generation**: Define your data structure using a JSON schema, and Sencept will generate synthetic data based on your specifications.
 - **Flexible Field Types**: Supports various data types, including strings, numbers, dates, booleans, and more.
 - **Conditional Logic**: Generate data based on conditions and dependencies between fields.
 - **Unique Values**: Ensure unique values for specific fields like user_id or order_id.
-- **Weighted Random Choices**: Assign weights to choices for more realistic data distribution.
-- **Dynamic Operations**: Perform calculations like sums, percentages, and subtractions on generated data.
 - **CSV Export**: Save generated data to CSV files for easy integration with other tools.
 - **Customizable**: Easily extend and adapt the framework to meet your specific needs.
+- (🆕) **Weighted Random Choices**: Assign weights to choices for more realistic data distribution.
+- (🆕) **Dynamic Operations**: Perform calculations like sums, percentages, and subtractions on generated data.
 
-## Usage
+###### **Sencept** is still in active development, and new features are being added regularly. We also had a todo list that you can check out in the **[TODO](docs/TODO.md)** guide; these are the features that are planned to be implemented in the future.
+
+## 🔨 Usage
 
 ### 1. Define Your Schema
 Create a JSON schema file (e.g., `generate.json`) to define the structure of your synthetic data and place it in the 📂 `schemas` directory. Here's an example schema:
@@ -62,7 +66,9 @@ You can customize the number of rows by modifying the main.py script:
 num_rows_to_generate = 5000  # Change this to generate more or fewer rows
 ```
 
-## Contributing
+This script will generate 5000 rows of synthetic data based on the schema you defined.
+
+## 🤝 Contributing
 
 Contributions are welcome! If you'd like to contribute to Sencept, please follow these steps:
 
@@ -71,13 +77,17 @@ Contributions are welcome! If you'd like to contribute to Sencept, please follow
 3. Commit your changes and push to your branch.
 4. Submit a pull request with a detailed description of your changes.
 
-## License
+###### We'll be updating the **[CONTRIBUTING](CONTRIBUTING.md)** guide soon, so stay tuned!
+
+## 📄 License
 
 **Sencept** is released under the MIT License. See the [LICENSE](LICENSE) file for more information.
 
-## Contact
+## 🌐 Contacts
 
-For questions, feedback, or support, please open an issue on the this repository or contact the maintainer, [@noeyislearning](https://www.linkedin.com/in/noeyislearning/), directly.
+- [@noeyislearning](https://www.linkedin.com/in/noeyislearning/) on LinkedIn
+
+For questions, feedback, or support, please open an issue on the this repository or contact the maintainer directly.
 
 ## 🔥 Activity 
 
