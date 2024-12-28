@@ -12,4 +12,6 @@ These are the features that are planned to be implemented in the future. *If you
 - [ ] **Web Interface**: Create a web-based interface for generating synthetic data.
 - [ ] **Custom Functions**: Allow users to define custom functions for generating data.
 - [ ] **Advanced Operations**: Implement more complex operations for generating data.
+- [ ] **AI Integration**: Use machine learning models to generate data.
+  - [ ] **Using LLMs' (Large Language Models) API**
 
