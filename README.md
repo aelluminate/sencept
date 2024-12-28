@@ -1,6 +1,6 @@
 # Sencept
 
-![version](https://img.shields.io/badge/version-v0.2.1-black?style=for-the-badge&labelColor=%231f1f1e&color=%23f3f4f0)
+![version](https://img.shields.io/badge/version-v0.2.2-black?style=for-the-badge&labelColor=%231f1f1e&color=%23f3f4f0)
 
 **Sencept** is a *quite* powerful framework for generating high-quality synthetic data. The name blends "synthesis" and "concept," reflecting the project's focus on conceptualizing and synthesizing realistic datasets for training and evaluating machine learning models. With Sencept, you can create customizable, schema-driven synthetic data that mimics real-world scenarios, making it ideal for testing, development, and research.
 
@@ -14,6 +14,8 @@
 - **Customizable**: Easily extend and adapt the framework to meet your specific needs.
 - (🆕) **Weighted Random Choices**: Assign weights to choices for more realistic data distribution.
 - (🆕) **Dynamic Operations**: Perform calculations like sums, percentages, and subtractions on generated data.
+- (🆕) **Multiple Output Formats**: Save generated data in **CSV**, **JSON**, or **Excel** formats.
+- (🆕) **Command-Line Interface (CLI)**: Easily generate data with customizable options via the command line.
 
 ###### **Sencept** is still in active development, and new features are being added regularly. We also had a todo list that you can check out in the **[TODO](docs/TODO.md)** guide; these are the features that are planned to be implemented in the future.
 
@@ -49,24 +51,33 @@ Create a JSON schema file (e.g., `generate.json`) to define the structure of you
 
 For more advanced features like conditional logic, dynamic operations, and dependencies, refer to the **[SCHEMA GUIDE](docs/SCHEMA_GUIDE.md)**.
 
-### 2. Generate Synthetic Data
+### 2. Generate Synthetic Data (CLI)
 
-Run the main.py script to generate synthetic data based on your schema:
+Use the Command-Line Interface (CLI) to generate synthetic data with customizable options:
 
 ```bash
-python -B -m main
+python main.py --numrows 1000 --format csv
 ```
 
-The generated data will be saved as a CSV file *(by default)* in the 📂 `data/generated` directory. You can customize the output directory and file name in the `main.py` script but the default is `data/generated/synthetic_data_<timestamp>_<num_rows_to_generate>.csv`.
-### 3. Customize Generation
+**CLI Options**:
 
-You can customize the number of rows by modifying the main.py script:
+| Options | Description | Default | Required |
+| --- | --- | --- | --- |
+| `--numrows` | Number of rows to generate. | 1000 | Definitely **Yes** | 
+| `--format` | Output format (csv, json, excel). | csv | **No** |
+| `--output` | Output directory for the generated file. | `data/generated` | **No** |
 
-```python
-num_rows_to_generate = 5000  # Change this to generate more or fewer rows
+**Example**:
+
+- To generate 1000 rows and save as CSV:
+```bash
+python main.py --numrows 1000 --format csv
 ```
 
-This script will generate 5000 rows of synthetic data based on the schema you defined.
+- To generate 5000 rows and save as JSON:
+```bash
+python main.py --numrows 5000 --format json
+```
 
 ## 🤝 Contributing
 
