@@ -1,15 +1,26 @@
 import random
 import numpy as np
+import string
 
 
 def generate_number(config, row):
     if "value" in config:
         return config["value"]
-    if "format" in config and "prefix" in config["format"]:
-        prefix = config["format"]["prefix"]
+    if "format" in config:
+        prefix = config["format"].get("prefix", "")
+        suffix = config["format"].get("suffix", "")
         length = config.get("length", 6)
-        number = "".join([str(random.randint(0, 9)) for _ in range(length)])
-        return f"{prefix}{number}"
+        if config.get("alphanumeric", False):
+            characters = string.ascii_letters + string.digits
+            random_part = "".join(random.choices(characters, k=length))
+            case = config.get("case", "mixed")
+            if case == "uppercase":
+                random_part = random_part.upper()
+            elif case == "lowercase":
+                random_part = random_part.lower()
+        else:
+            random_part = "".join([str(random.randint(0, 9)) for _ in range(length)])
+        return f"{prefix}{random_part}{suffix}"
     elif "range" in config:
         return random.randint(config["range"]["min"], config["range"]["max"])
     elif "choices" in config:
