@@ -1,7 +1,5 @@
 # Schema Guide
 
-![version](https://img.shields.io/badge/version-v0.2.1-black?style=for-the-badge&labelColor=%231f1f1e&color=%23f3f4f0)
-
 The schema is a JSON object that defines the structure and rules for generating synthetic data. Each key in the schema represents a column in the dataset, and its value is a configuration object that specifies how the data for that column should be generated.
 
 ###### For example schema(s), refer to the **[EXAMPLE SCHEMA](EXAMPLE_SCHEMA.md)** guide.
