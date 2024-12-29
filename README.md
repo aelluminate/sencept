@@ -1,6 +1,6 @@
 # Sencept
 
-![version](https://img.shields.io/badge/version-v0.2.3-black?style=for-the-badge&labelColor=%231f1f1e&color=%23f3f4f0)
+![version](https://img.shields.io/badge/version-v0.2.4-black?style=for-the-badge&labelColor=%231f1f1e&color=%23f3f4f0)
 
 **Sencept** is a *quite* powerful framework for generating high-quality synthetic data. The name blends "synthesis" and "concept," reflecting the project's focus on conceptualizing and synthesizing realistic datasets for training and evaluating machine learning models. With Sencept, you can create customizable, schema-driven synthetic data that mimics real-world scenarios, making it ideal for testing, development, and research.
 
@@ -44,7 +44,9 @@ Create a JSON schema file (e.g., `generate.json`) to define the structure of you
     "payment_method": {
         "type": "string",
         "choices": ["GCash", "Maya", "Credit Card"],
-        "weight": "random"
+        "weight": {
+        "balanced": false,
+        "algorithm": "beta"
     }
 }
 ```
@@ -69,15 +71,12 @@ python main.py --numrows 1000 --format csv
 
 **Example**:
 
-- To generate 1000 rows and save as CSV:
+- To generate 1000 rows, save as CSV, and change its output directory:
 ```bash
-python main.py --numrows 1000 --format csv
+python main.py --numrows 1000 --format csv --output generated/sales
 ```
 
-- To generate 5000 rows and save as JSON:
-```bash
-python main.py --numrows 5000 --format json
-```
+❗ NOTE: This will create a new directory named 📂 `generated/sales/` in the root folder.
 
 ## 🤝 Contributing
 
