@@ -24,7 +24,10 @@
             "F",
             "O"
         ],
-        "weight": "random"
+        "weight": {
+            "balanced": false,
+            "algorithm": "exponential"
+        }
     },
     "phone_number": {
         "type": "number",
@@ -65,13 +68,15 @@
             "bank_transfer",
             "otc"
         ],
-        "weight": "random"
+        "weight": {
+            "balanced": false,
+            "algorithm": "exponential"
+        }
     },
     "loyalty_program_member": {
         "type": "boolean",
         "parent": "user_id",
-        "choices": [0, 1],
-        "weight": "random"
+        "choices": [0, 1]
     },
     "loyalty_points_redeemed": {
         "type": "number",
@@ -84,7 +89,10 @@
         "type": "string",
         "parent": "user_id",
         "choices": [1, 2, 3, 4],
-        "weight": "random",
+        "weight": {
+            "balanced": false,
+            "algorithm": "exponential"
+        },
         "condition": {
             "field": "loyalty_program_member",
             "value": 1
@@ -109,7 +117,10 @@
     "card_discount_percentage": {
         "type": "number",
         "choices": [1, 2, 3, 4, 5],
-        "weight": "random",
+        "weight": {
+            "balanced": false,
+            "algorithm": "exponential"
+        },
         "condition": {
             "field": "payment_method",
             "values": ["visa_c", "mastercard_c", "amex"]
@@ -118,7 +129,10 @@
     "coupon_discount_percentage": {
         "type": "number",
         "choices": [0, 1, 2, 3, 4, 5],
-        "weight": "random"
+        "weight": {
+            "balanced": false,
+            "algorithm": "exponential"
+        }
     },
     "total_discount_percentage": {
         "type": "number",
@@ -210,7 +224,10 @@
             "tools",
             "appliances"
         ],
-        "weight": "random"
+        "weight": {
+            "balanced": false,
+            "algorithm": "exponential"
+        }
     },
     "purchase_medium": {
         "type": "string",
@@ -218,7 +235,10 @@
             "online",
             "in-store"
         ],
-        "weight": "random"
+        "weight": {
+            "balanced": false,
+            "algorithm": "exponential"
+        }
     },
     "return_status": {
         "type": "string",
@@ -282,7 +302,10 @@
             "standard",
             "express"
         ],
-        "weight": "random"
+        "weight": {
+            "balanced": false,
+            "algorithm": "exponential"
+        }
     },
     "shipping_cost": {
         "type": "number",
@@ -306,6 +329,9 @@
     "customer_exp_rating": {
         "type": "number",
         "choices": [1, 2, 3, 4, 5],
-        "weight": "random"
+        "weight": {
+            "balanced": false,
+            "algorithm": "exponential" 
+        }
     }
 }
