@@ -1,8 +1,8 @@
 import os
 import argparse
 from datetime import datetime
-from utils.synthetic import generate_synthetic_data
-from utils.file_operations import save_to_csv, save_to_json, save_to_excel
+from lib.synthetic import generate_synthetic_data
+from lib.file_operations import save_to_csv, save_to_json, save_to_excel
 
 
 def main():
