@@ -45,8 +45,9 @@ Create a JSON schema file (e.g., `generate.json`) to define the structure of you
         "type": "string",
         "choices": ["GCash", "Maya", "Credit Card"],
         "weight": {
-        "balanced": false,
-        "algorithm": "beta"
+            "balanced": false,
+            "algorithm": "beta"
+        }
     }
 }
 ```
