@@ -53,16 +53,39 @@ Specifies a list of possible values for the column. A random value is selected f
 ```
 
 ### 4. "`weight`"
-Specifies how random choices are weighted. If set to "random", weights are generated using a Dirichlet distribution.
+Specifies how random choices are weighted. If set to "random", weights are generated using a Dirichlet distribution. Various algorithms can be used to generate weights, such as `exponential`, `power_law`, `beta`, `lognormal`, and `zipf`.
 
-**Applicable Types**: `string`, `number`, `boolean` (when choices is used).
+**Applicable Types**: `string`, `number` (when `choices` is used).
 
 **Example**:
 ```json
 "payment_method": {
     "type": "string",
     "choices": ["GCash", "Maya", "Credit Card"],
-    "weight": "random"
+    "weight": {
+        "balanced": true,
+    }
+}
+```
+
+#### 4.a "`algorithm`"
+
+- "`exponential`": Generates weights using an exponential distribution.
+- "`power_law`": Generates weights using a power law distribution.
+- "`beta`": Generates weights using a beta distribution.
+- `"lognormal"`: Generates weights using a lognormal distribution.
+- "`zipf`": Generates weights using a Zipf distribution.
+- "`dirichlet`" (default): Generates weights using a Dirichlet distribution.
+
+**Example**:
+```json
+"age": {
+    "type": "number",
+    "choices": [18, 25, 30, 35, 40, 45, 50, 55, 60],
+    "weight": {
+        "balanced": false,
+        "algorithm": "beta"
+    }
 }
 ```
 
