@@ -52,7 +52,7 @@ Create a JSON schema file (e.g., `generate.json`) to define the structure of you
 }
 ```
 
-For more advanced features like conditional logic, dynamic operations, and dependencies, refer to the **[SCHEMA GUIDE](docs/SCHEMA_GUIDE.md)** and for example schemas, check the [EXAMPLES](docs/EXAMPLES.md) guide.
+For more advanced features like conditional logic, dynamic operations, and dependencies, refer to the **[SCHEMA GUIDE](docs/SCHEMA_GUIDE.md)** and for example schemas, check the **[EXAMPLES](docs/EXAMPLES.md)** guide.
 
 ### 2. Generate Synthetic Data (CLI)
 
@@ -92,11 +92,11 @@ Contributions are welcome! If you'd like to contribute to Sencept, please follow
 
 ## 📄 License
 
-**Sencept** is released under the MIT License. See the [LICENSE](LICENSE) file for more information.
+**Sencept** is released under the MIT License. See the **[LICENSE](LICENSE)** file for more information.
 
 ## 🌐 Contacts
 
-- [@noeyislearning](https://www.linkedin.com/in/noeyislearning/) on LinkedIn
+- **[@noeyislearning](https://www.linkedin.com/in/noeyislearning/)** on LinkedIn
 
 For questions, feedback, or support, please open an issue on the this repository or contact the maintainer directly.
 
