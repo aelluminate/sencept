@@ -2,7 +2,7 @@
 
 The schema is a JSON object that defines the structure and rules for generating synthetic data. Each key in the schema represents a column in the dataset, and its value is a configuration object that specifies how the data for that column should be generated.
 
-###### For example schema(s), refer to the **[EXAMPLE SCHEMA](EXAMPLE_SCHEMA.md)** guide.
+###### For example schema(s), refer to the **[EXAMPLES](EXAMPLES.md)** file.
 
 ## Types
 
