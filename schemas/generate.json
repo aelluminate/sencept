@@ -1,337 +1,349 @@
 {
-    "user_id": {
-        "id": true,
-        "type": "number",
-        "unique": true,
-        "format": {
-            "prefix": "****"
-        },
-        "length": 6
+  "user_id": {
+    "id": true,
+    "type": "number",
+    "unique": true,
+    "format": {
+      "prefix": "****"
     },
-    "age": {
-        "type": "number",
-        "parent": "user_id",
-        "range": {
-            "min": 18,
-            "max": 60
-        }
-    },
-    "sex": {
-        "type": "string",
-        "parent": "user_id",
-        "choices": [
-            "M",
-            "F",
-            "O"
-        ],
-        "weight": {
-            "balanced": false,
-            "algorithm": "exponential"
-        }
-    },
-    "phone_number": {
-        "type": "number",
-        "unique": true,
-        "parent": "user_id",
-        "format": {
-            "prefix": "63**",
-            "suffix": "**"
-        },
-        "length": 6
-    },
-    "joined_date": {
-        "type": "date",
-        "parent": "user_id",
-        "dates": {
-            "min": "2020-01-01"
-        }
-    },
-    "country": {
-        "type": "string",
-        "parent": "user_id",
-        "value": "Philippines"
-    },
-    "payment_method": {
-        "type": "string",
-        "choices": [
-            "gcash",
-            "maya",
-            "grabpay",
-            "shopeepay",
-            "coinsph",
-            "visa_c",
-            "mastercard_c",
-            "amex",
-            "visa_d",
-            "mastercard_d",
-            "cash",
-            "bank_transfer",
-            "otc"
-        ],
-        "weight": {
-            "balanced": false,
-            "algorithm": "exponential"
-        }
-    },
-    "loyalty_program_member": {
-        "type": "boolean",
-        "parent": "user_id",
-        "choices": [0, 1]
-    },
-    "loyalty_points_redeemed": {
-        "type": "number",
-        "range": {
-            "min": 0,
-            "max": 5
-        }
-    },
-    "loyalty_tier": {
-        "type": "string",
-        "parent": "user_id",
-        "choices": [1, 2, 3, 4],
-        "weight": {
-            "balanced": false,
-            "algorithm": "exponential"
-        },
-        "condition": {
-            "field": "loyalty_program_member",
-            "value": 1
-        }
-    },
-    "tier_discount_percentage": {
-        "type": "number",
-        "mapping": {
-            "field": "loyalty_tier",
-            "values": {
-                "1": 3,
-                "2": 5,
-                "3": 7,
-                "4": 10
-            }
-        },
-        "condition": {
-            "field": "loyalty_tier",
-            "values": [1, 2, 3, 4]
-        }
-    },
-    "card_discount_percentage": {
-        "type": "number",
-        "choices": [1, 2, 3, 4, 5],
-        "weight": {
-            "balanced": false,
-            "algorithm": "exponential"
-        },
-        "condition": {
-            "field": "payment_method",
-            "values": ["visa_c", "mastercard_c", "amex"]
-        }
-    },
-    "coupon_discount_percentage": {
-        "type": "number",
-        "choices": [0, 1, 2, 3, 4, 5],
-        "weight": {
-            "balanced": false,
-            "algorithm": "exponential"
-        }
-    },
-    "total_discount_percentage": {
-        "type": "number",
-        "inputs": ["tier_discount_percentage", "card_discount_percentage", "coupon_discount_percentage"],
-        "operation": "sum"
-    },
-    "total_purchase": {
-        "type": "number",
-        "range": {
-            "min": 50,
-            "max": 9999
-        }
-    },
-    "total_discount": {
-        "type": "number",
-        "inputs": ["total_discount_percentage", "total_purchase"],
-        "operation": "percentage"
-    },
-    "total_purchase_after_discount": {
-        "type": "number",
-        "inputs": ["total_purchase", "total_discount"],
-        "operation": "subtract"
-    },
-    "transaction_id": {
-        "id": true,
-        "type": "number",
-        "format": {
-            "prefix": "***"
-        },
-        "length": 8
-    },
-    "payment_status": {
-        "type": "string",
-        "value": "paid"
-    },
-    "payment_date": {
-        "type": "date",
-        "dependency": {
-            "field": "joined_date",
-            "offset": {
-                "min": 1
-            }
-        }
-    },
-    "payment_time": {
-        "type": "time"
-    },
-    "purchased_date": {
-        "type": "date",
-        "dependency": {
-            "field": "payment_date",
-            "offset": {
-                "min": 0,
-                "max": 0
-            }
-        }
-    },
-    "purchased_time": {
-        "type": "time",
-        "dependency": {
-            "field": "payment_time",
-            "offset": {
-                "min": 0,
-                "max": 0
-            }
-        }
-    },
-    "product_category": {
-        "type": "string",
-        "choices": [
-            "electronics",
-            "clothing",
-            "groceries",
-            "books",
-            "furniture",
-            "toys",
-            "beauty",
-            "sports",
-            "automotive",
-            "jewelry",
-            "health",
-            "home",
-            "garden",
-            "office supplies",
-            "pet supplies",
-            "music",
-            "movies",
-            "video games",
-            "tools",
-            "appliances"
-        ],
-        "weight": {
-            "balanced": false,
-            "algorithm": "exponential"
-        }
-    },
-    "purchase_medium": {
-        "type": "string",
-        "choices": [
-            "online",
-            "in-store"
-        ],
-        "weight": {
-            "balanced": false,
-            "algorithm": "exponential"
-        }
-    },
-    "return_status": {
-        "type": "string",
-        "value": "not returned"
-    },
-    "refund_amount": {
-        "type": "number",
-        "value": 0
-    },
-    "return_date": {
-        "type": "date",
-        "value": ""
-    },
-    "order_id": {
-        "id": true,
-        "type": "number",
-        "unique": true,
-        "format": {
-            "prefix": "***"
-        },
-        "length": 6
-    },
-    "released_date": {
-        "type": "date",
-        "dependency": {
-            "field": "purchased_date",
-            "offset": {
-                "min": 1,
-                "max": 7
-            }
-        }
-    },
-    "estimated_delivery_date": {
-        "type": "date",
-        "dependency": {
-            "field": "released_date",
-            "offset": {
-                "min": 1,
-                "max": 7
-            }
-        }
-    },
-    "received_date": {
-        "type": "date",
-        "dependency": {
-            "field": "estimated_delivery_date",
-            "offset": {
-                "min": -3,
-                "max": 2
-            }
-        }
-    },
-    "total_delivery_days": {
-        "type": "number",
-        "inputs": ["received_date", "purchased_date"],
-        "operation": "subtract"
-    },
-    "shipping_method": {
-        "type": "string",
-        "choices": [
-            "standard",
-            "express"
-        ],
-        "weight": {
-            "balanced": false,
-            "algorithm": "exponential"
-        }
-    },
-    "shipping_cost": {
-        "type": "number",
-        "range": {
-            "min": 50,
-            "max": 300
-        }
-    },
-    "tracking_number": {
-        "id": true,
-        "type": "number",
-        "alphanumeric": true,
-        "case": "uppercase",
-        "unique": true,
-        "format": {
-            "prefix": "***"
-        },
-        "length": 10
-        
-    },
-    "customer_exp_rating": {
-        "type": "number",
-        "choices": [1, 2, 3, 4, 5],
-        "weight": {
-            "balanced": false,
-            "algorithm": "exponential" 
-        }
+    "length": 6
+  },
+  "age": {
+    "type": "number",
+    "parent": "user_id",
+    "range": {
+      "min": 18,
+      "max": 60
     }
+  },
+  "sex": {
+    "type": "string",
+    "parent": "user_id",
+    "choices": ["M", "F", "O"],
+    "weight": {
+      "balanced": false,
+      "algorithm": "exponential"
+    }
+  },
+  "phone_number": {
+    "type": "number",
+    "unique": true,
+    "parent": "user_id",
+    "format": {
+      "prefix": "63**",
+      "suffix": "**"
+    },
+    "length": 6
+  },
+  "joined_date": {
+    "type": "date",
+    "parent": "user_id",
+    "dates": {
+      "min": "2020-01-01"
+    }
+  },
+  "country": {
+    "type": "string",
+    "parent": "user_id",
+    "value": "Philippines"
+  },
+  "payment_method": {
+    "type": "string",
+    "choices": [
+      "gcash",
+      "maya",
+      "grabpay",
+      "shopeepay",
+      "coinsph",
+      "visa_c",
+      "mastercard_c",
+      "amex",
+      "visa_d",
+      "mastercard_d",
+      "cash",
+      "bank_transfer",
+      "otc"
+    ],
+    "weight": {
+      "balanced": false,
+      "algorithm": "exponential"
+    }
+  },
+  "loyalty_program_member": {
+    "type": "boolean",
+    "parent": "user_id",
+    "choices": [0, 1]
+  },
+  "loyalty_points_redeemed": {
+    "type": "number",
+    "dependency": [
+      {
+        "field": "loyalty_program_member",
+        "value": 1
+      }
+    ],
+    "calculation": {
+      "field": "total_purchase",
+      "operation": "divide",
+      "value": 1000
+    }
+  },
+  "loyalty_tier": {
+    "type": "string",
+    "parent": "user_id",
+    "choices": [1, 2, 3, 4],
+    "weight": {
+      "balanced": false,
+      "algorithm": "exponential"
+    },
+    "condition": {
+      "field": "loyalty_program_member",
+      "value": 1
+    }
+  },
+  "tier_discount_percentage": {
+    "type": "number",
+    "mapping": {
+      "field": "loyalty_tier",
+      "values": {
+        "1": 3,
+        "2": 5,
+        "3": 7,
+        "4": 10
+      }
+    },
+    "condition": {
+      "field": "loyalty_tier",
+      "values": [1, 2, 3, 4]
+    }
+  },
+  "card_discount_percentage": {
+    "type": "number",
+    "choices": [1, 2, 3, 4, 5],
+    "weight": {
+      "balanced": false,
+      "algorithm": "exponential"
+    },
+    "condition": {
+      "field": "payment_method",
+      "values": ["visa_c", "mastercard_c", "amex"]
+    }
+  },
+  "coupon_discount_percentage": {
+    "type": "number",
+    "choices": [0, 1, 2, 3, 4, 5],
+    "weight": {
+      "balanced": false,
+      "algorithm": "exponential"
+    }
+  },
+  "total_discount_percentage": {
+    "type": "number",
+    "inputs": [
+      "tier_discount_percentage",
+      "card_discount_percentage",
+      "coupon_discount_percentage"
+    ],
+    "operation": "sum"
+  },
+  "total_purchase": {
+    "type": "number",
+    "range": {
+      "min": 50,
+      "max": 9999
+    }
+  },
+  "total_discount": {
+    "type": "number",
+    "inputs": ["total_discount_percentage", "total_purchase"],
+    "operation": "percentage"
+  },
+  "total_purchase_after_discount": {
+    "type": "number",
+    "inputs": ["total_purchase", "total_discount"],
+    "operation": "subtract"
+  },
+  "transaction_id": {
+    "id": true,
+    "type": "number",
+    "format": {
+      "prefix": "***"
+    },
+    "length": 8
+  },
+  "payment_status": {
+    "type": "string",
+    "value": "paid"
+  },
+  "payment_date": {
+    "type": "date",
+    "dependency": [
+      {
+        "field": "joined_date",
+        "offset": {
+          "min": 1
+        }
+      }
+    ]
+  },
+  "payment_time": {
+    "type": "time"
+  },
+  "purchased_date": {
+    "type": "date",
+    "dependency": [
+      {
+        "field": "payment_date",
+        "offset": {
+          "min": 0,
+          "max": 0
+        }
+      }
+    ]
+  },
+  "purchased_time": {
+    "type": "time",
+    "dependency": [
+      {
+        "field": "payment_time",
+        "offset": {
+          "min": 0,
+          "max": 0
+        }
+      }
+    ]
+  },
+  "product_category": {
+    "type": "string",
+    "choices": [
+      "electronics",
+      "clothing",
+      "groceries",
+      "books",
+      "furniture",
+      "toys",
+      "beauty",
+      "sports",
+      "automotive",
+      "jewelry",
+      "health",
+      "home",
+      "garden",
+      "office supplies",
+      "pet supplies",
+      "music",
+      "movies",
+      "video games",
+      "tools",
+      "appliances"
+    ],
+    "weight": {
+      "balanced": false,
+      "algorithm": "exponential"
+    }
+  },
+  "purchase_medium": {
+    "type": "string",
+    "choices": ["online", "in-store"],
+    "weight": {
+      "balanced": false,
+      "algorithm": "exponential"
+    }
+  },
+  "return_status": {
+    "type": "string",
+    "value": "not returned"
+  },
+  "refund_amount": {
+    "type": "number",
+    "value": 0
+  },
+  "return_date": {
+    "type": "date",
+    "value": ""
+  },
+  "order_id": {
+    "id": true,
+    "type": "number",
+    "unique": true,
+    "format": {
+      "prefix": "***"
+    },
+    "length": 6
+  },
+  "released_date": {
+    "type": "date",
+    "dependency": [
+      {
+        "field": "purchased_date",
+        "offset": {
+          "min": 1,
+          "max": 7
+        }
+      }
+    ]
+  },
+  "estimated_delivery_date": {
+    "type": "date",
+    "dependency": [
+      {
+        "field": "released_date",
+        "offset": {
+          "min": 1,
+          "max": 7
+        }
+      }
+    ]
+  },
+  "received_date": {
+    "type": "date",
+    "dependency": [
+      {
+        "field": "estimated_delivery_date",
+        "offset": {
+          "min": -3,
+          "max": 2
+        }
+      }
+    ]
+  },
+  "total_delivery_days": {
+    "type": "number",
+    "inputs": ["received_date", "purchased_date"],
+    "operation": "subtract"
+  },
+  "shipping_method": {
+    "type": "string",
+    "choices": ["standard", "express"],
+    "weight": {
+      "balanced": false,
+      "algorithm": "exponential"
+    }
+  },
+  "shipping_cost": {
+    "type": "number",
+    "range": {
+      "min": 50,
+      "max": 300
+    }
+  },
+  "tracking_number": {
+    "id": true,
+    "type": "number",
+    "alphanumeric": true,
+    "case": "uppercase",
+    "unique": true,
+    "format": {
+      "prefix": "***"
+    },
+    "length": 10
+  },
+  "customer_exp_rating": {
+    "type": "number",
+    "choices": [1, 2, 3, 4, 5],
+    "weight": {
+      "balanced": false,
+      "algorithm": "exponential"
+    }
+  }
 }
