@@ -15,7 +15,7 @@ The schema is a JSON object that defines the structure and rules for generating 
 
 ## Properties
 
-### 1. "`type`"
+### "`type`"
 Specifies the data type of the column.  
 
 **Allowed Values**: `string`, `number`, `date`, `time`, `boolean`.
@@ -27,7 +27,7 @@ Specifies the data type of the column.
 }
 ```
 
-### 2. "`value`"
+### "`value`"
 Assigns a fixed value to the column. If specified, all other properties are ignored.
 
 **Allowed Values**: All
@@ -39,7 +39,7 @@ Assigns a fixed value to the column. If specified, all other properties are igno
     "value": "Philippines"
 }
 ```
-### 3. "`choices`"
+### "`choices`"
 Specifies a list of possible values for the column. A random value is selected from this list.
 
 **Applicable Types**: `string`, `number`, `boolean`.
@@ -52,7 +52,7 @@ Specifies a list of possible values for the column. A random value is selected f
 }
 ```
 
-### 4. "`weight`"
+### "`weight`"
 Specifies how random choices are weighted. If set to "random", weights are generated using a Dirichlet distribution. Various algorithms can be used to generate weights, such as `exponential`, `power_law`, `beta`, `lognormal`, and `zipf`.
 
 **Applicable Types**: `string`, `number` (when `choices` is used).
@@ -68,7 +68,7 @@ Specifies how random choices are weighted. If set to "random", weights are gener
 }
 ```
 
-#### 4.a "`algorithm`"
+#### "`algorithm`" 🆕
 
 - "`exponential`": Generates weights using an exponential distribution.
 - "`power_law`": Generates weights using a power law distribution.
@@ -89,7 +89,7 @@ Specifies how random choices are weighted. If set to "random", weights are gener
 }
 ```
 
-### 5. "`range`"
+### "`range`"
 Specifies a range of numeric values. A random number is generated within this range.
 
 **Applicable Types**: `number`.
@@ -109,7 +109,7 @@ Specifies a range of numeric values. A random number is generated within this ra
 }
 ```
 
-### 6. "`format`"
+### "`format`"
 
 Specifies a custom format for generating values.
 
@@ -132,7 +132,7 @@ Specifies a custom format for generating values.
 }
 ```
 
-### 7. "`dates`"
+### "`dates`"
 Specifies a date range for generating date values.
 
 **Applicable Types**: `date`.
@@ -151,7 +151,7 @@ Specifies a date range for generating date values.
 }
 ```
 
-### 8. "`dependency`"
+### "`dependency`"
 Specifies that the value of this column depends on another column.
 
 **Applicable Types**: `date`, `time`.
@@ -176,7 +176,7 @@ Specifies that the value of this column depends on another column.
 }
 ```
 
-### 9. "`mapping`"
+### "`mapping`"
 Maps the value of this column to another column's value using a dictionary.
 
 **Applicable Types**: `number`.
@@ -201,7 +201,7 @@ Maps the value of this column to another column's value using a dictionary.
 }
 ```
 
-### 10. "`condition`"
+### "`condition`"
 Specifies a condition for generating the value of this column.
 
 **Properties**:
@@ -221,7 +221,7 @@ Specifies a condition for generating the value of this column.
 }
 ```
 
-### 11. "`inputs`"
+### "`inputs`"
 Specifies a list of columns whose values are used as inputs for an operation.
 
 - **Applicable Types**: `number`.
@@ -235,7 +235,7 @@ Specifies a list of columns whose values are used as inputs for an operation.
 }
 ```
 
-### 12. "`operation`"
+### "`operation`"
 Specifies an operation to perform on the input values.
 
 **Applicable Types**: `number`.
@@ -254,7 +254,37 @@ Specifies an operation to perform on the input values.
 }
 ```
 
-### 13. "`parent`"
+### "`calculation`" 🆕
+Specifies a dynamic calculation for generating the value of this column.
+
+**Applicable Types**: `number`.
+
+**Properties**:
+- "`field`": The column to use for the calculation.
+- "`operation`": The operation to perform.
+  - "`divide`": Divides the value by the field. (for now, only divide is supported)
+- "`value`": The value to use in the calculation.
+
+**Example**:
+```json
+"loyalty_points_redeemed": {
+    "type": "number",
+    "dependency": [
+        {
+            "field": "loyalty_program_member",
+            "value": 1
+        }
+    ],
+    "calculation": {
+        "field": "total_purchase",
+        "operation": "divide",
+        "value": 1000
+    }
+}
+```
+
+
+### "`parent`"
 Specifies that the value of this column is tied to another column (e.g., for consistency across rows).
 
 **Example**:
@@ -265,7 +295,7 @@ Specifies that the value of this column is tied to another column (e.g., for con
 }
 ```
 
-### 14. "`unique`"
+### "`unique`"
 Ensures that the values in this column are unique.
 
 **Applicable Types**: `string`, `number`.
@@ -278,7 +308,7 @@ Example:
 }
 ```
 
-### 15. "`alphanumeric`" 🆕
+### "`alphanumeric`" 🆕
 Specifies whether the generated value should be alphanumeric (letters and numbers).
 
 **Applicable Types**: `number`.
@@ -297,7 +327,7 @@ Specifies whether the generated value should be alphanumeric (letters and number
 }
 ```
 
-### 16. "`case`" 🆕
+### "`case`" 🆕
 Specifies the case format of the generated string or alphanumeric value.
 
 **Applicable Types**: string, number (when alphanumeric is true).
