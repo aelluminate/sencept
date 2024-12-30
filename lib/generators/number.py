@@ -13,6 +13,21 @@ from utils.randomizers.algorithms import (
 
 
 def generate_number(config, row):
+    if "dependency" in config:
+        dependencies = config["dependency"]
+        for dependency in dependencies:
+            field = dependency["field"]
+            if "value" in dependency:
+                if row.get(field) != dependency["value"]:
+                    return 0
+
+    if "calculation" in config:
+        calculation = config["calculation"]
+        field_value = row.get(calculation["field"], 0)
+        if calculation["operation"] == "divide":
+            points = int(field_value / calculation["value"])
+            return points
+
     if "value" in config:
         return config["value"]
     if "format" in config:

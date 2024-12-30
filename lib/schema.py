@@ -19,6 +19,7 @@ def generate_data_from_schema(schema, num_rows):
     for _ in tqdm(range(num_rows), desc="Generating data", unit="record"):
         row = {}
         parent_values = {}
+        revalidate_fields = []
 
         for column, config in schema.items():
             condition_result = handle_condition(config, row)
@@ -27,7 +28,7 @@ def generate_data_from_schema(schema, num_rows):
                 continue
 
             if config["type"] == "string":
-                value = generate_string(config)
+                value = generate_string(config, row)
             elif config["type"] == "number":
                 value = generate_number(config, row)
             elif config["type"] == "date":
@@ -64,6 +65,20 @@ def generate_data_from_schema(schema, num_rows):
                     parent_values[parent] = parent_value
 
             row[column] = value
+
+            if "dependency" in config or "calculation" in config:
+                revalidate_fields.append(column)
+
+        for column in revalidate_fields:
+            config = schema[column]
+            if config["type"] == "number":
+                row[column] = generate_number(config, row)
+            elif config["type"] == "string":
+                row[column] = generate_string(config, row)
+            elif config["type"] == "date":
+                row[column] = generate_date(config, row)
+            elif config["type"] == "time":
+                row[column] = generate_time(config, row)
 
         for column in schema.keys():
             if column not in row:

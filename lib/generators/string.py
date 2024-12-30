@@ -13,7 +13,15 @@ from utils.randomizers.algorithms import (
 fake = Faker("en_US")
 
 
-def generate_string(config):
+def generate_string(config, row):
+    if "dependency" in config:
+        dependencies = config["dependency"]
+        for dependency in dependencies:
+            dependency_field = dependency["field"]
+            if row.get(dependency_field) is not None:
+                return row[dependency_field]
+        return None
+
     if "choices" in config:
         if "weight" in config:
             weight_config = config["weight"]
