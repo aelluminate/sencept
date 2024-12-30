@@ -2,16 +2,45 @@
 
 These are the features that are planned to be implemented in the future. *If you would like to contribute to the project, feel free to pick any of these tasks and submit a pull request.*
 
-- [ ] **Data Validation**: Validate generated data against a schema to ensure accuracy and consistency.
-- [ ] **Database Integration**: Directly insert generated data into a database.
-  - [ ] **MySQL**
-  - [ ] **PostgreSQL**
-  - [ ] **SQLite**
-  - [ ] **MongoDB**
-  - [ ] (More to come)
-- [ ] **Web Interface**: Create a web-based interface for generating synthetic data.
-- [ ] **Custom Functions**: Allow users to define custom functions for generating data.
+- [ ] **(Continuous) More Templates and Presets**: Provide **predefined templates** or presets for common use cases (e.g., e-commerce, healthcare, finance).
+- [ ] **Data Export Formats**: Support more export formats for the generated data.
+  - [x] **CSV**: Comma-separated values.
+  - [x] **JSON**: Structured JSON files.
+  - [x] **Excel**: Excel spreadsheets.
+  - [ ] **Parquet**: Efficient columnar storage format.
+  - [ ] **SQL**: Generate SQL insert statements for direct database insertion.
+- [ ] **Data Validation**: Add **data validation** to ensure generated data meets specific criteria (e.g., regex patterns, value ranges, or custom rules).
+- [ ] **Data Profiling**: Include **data profiling** features to analyze the generated dataset (e.g., distribution of values, missing data, uniqueness).
+- [ ] **Realistic Data Generation**: Enhance realism in generated data.
+  - [ ] **Geolocation**: Generate realistic latitude/longitude or city/country pairs.
+  - [ ] **Names**: Use region-specific name generators (e.g., Filipino names, Indian names, American names).
+  - [ ] **Addresses**: Generate full addresses with street names, cities, and postal codes.
+  - [ ] (more to come)
+- [ ] **Integration with External Systems**: Enable integration with external systems.
+  - [ ] **Databases**: Directly generate data into databases.
+    - [ ] **MySQL**
+    - [ ] **PostgreSQL**
+    - [ ] **SQLite**
+    - [ ] **MongoDB**
+  - [ ] **APIs**: Generate data and send it to an API endpoint.
+  - [ ] **Data Lakes**: Export data to cloud storage.
+    - [ ] **AWS S3**
+    - [ ] **Google Cloud Storage**
+- [ ] **Interactive Schema Editor**: Build an **interactive schema editor** (e.g., a web-based UI) to make it easier for users to define and modify schemas. *Ex.: Drag-and-drop fields, real-time validation, and previews of generated data.*
+- [ ] **Custom Functions**: Allow users to define **custom functions** for generating data. This would enable highly specific or complex data generation logic.
+- [ ] **Customizable Randomization**: Allow users to control the **randomization seed** for reproducible data generation. *Ex.: Use a fixed seed to generate the same dataset every time.*
 - [ ] **Advanced Operations**: Implement more complex operations for generating data.
 - [ ] **AI Integration**: Use machine learning models to generate data.
   - [ ] **Using LLMs' (Large Language Models) API**
-
+- [ ] **Parallel Processing**: Optimize performance by adding parallel processing for large datasets. *Ex.: Generate 1 million rows of data using multiple CPU cores.*
+- [ ] **Data Relationships**: Support **complex relationships** between tables (e.g., foreign keys, one-to-many relationships). *Ex.: Generate a users table and a related orders table where each user has multiple orders.*
+- [ ] **Data Masking**: Implement **data masking** features to protect sensitive information (e.g., anonymize personal data like names, emails, and phone numbers).
+- [ ] **Data Versioning**: Add **versioning** for schemas and generated datasets to track changes over time. *Ex.: Save different versions of a schema and compare the generated datasets.*
+- [ ] **Error Injection**: Add features to **inject errors** into the dataset for testing data quality pipelines. *Ex.: Introduce missing values, duplicate rows, or invalid formats.Introduce missing values, duplicate rows, or invalid formats.*
+- [ ] **Machine Learning Integration**: Add support for generating data based on **machine learning models** (e.g., synthetic data that mimics real-world distributions). Ex.: *Use a GAN (Generative Adversarial Network) to generate realistic data.*
+- [ ] **Data Visualization**: Include data visualization tools to help users explore and understand the generated data. *Ex.: Generate histograms, scatter plots, and summary statistics.*
+- [ ] **API**: Build an API for the project to allow programmatic access to the data generation capabilities.
+- [ ] **Performance Metrics**: Add performance metrics to measure the speed and efficiency of data generation. *Ex.: Time taken to generate 1 million rows of data.*
+- [ ] **Localization**: Support multiple languages and regions for generating data (e.g., date formats, currency symbols, and language-specific data).
+- [ ] **Data Compression**: Implement data compression techniques to reduce the size of generated datasets. *Ex.: Use gzip or other compression algorithms.*
+- [ ] **Data Sampling**: Add features for sampling data from large datasets (e.g., random sampling, stratified sampling, or systematic sampling).
