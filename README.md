@@ -52,7 +52,7 @@ Create a JSON schema file (e.g., `generate.json`) to define the structure of you
 }
 ```
 
-For more advanced features like conditional logic, dynamic operations, and dependencies, refer to the **[SCHEMA GUIDE](docs/SCHEMA_GUIDE.md)**.
+For more advanced features like conditional logic, dynamic operations, and dependencies, refer to the **[SCHEMA GUIDE](docs/SCHEMA_GUIDE.md)** and for example schemas, check the [EXAMPLES](docs/EXAMPLES.md) guide.
 
 ### 2. Generate Synthetic Data (CLI)
 
