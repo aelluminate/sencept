@@ -111,24 +111,32 @@ Specifies a range of numeric values. A random number is generated within this ra
 
 ### "`format`"
 
-Specifies a custom format for generating values.
+Specifies a custom format for generating values. This can include prefix, suffix, or random insertions.
 
-**Applicable Types**: `string`, `number`.
+**Applicable Types**: `number`.
 
 **Properties**:
-- `prefix`: A prefix to prepend to the generated value.
-- `suffix`: A suffix to append to the generated value.
-- `length`: The length of the generated value (excluding the prefix).
+- `position`: Where to place the characters (`prefix`, `suffix`, or `random`).
+- `contains`: The characters to use (e.g., `*`,`#`).
+- `count`: The number of characters to add.
 
 **Example**:
 ```json
-"phone_number": {
+"user_id": {
     "type": "number",
-    "format": {
-        "prefix": "63",
-        "suffix": "***",
-        "length": 7
-    }
+    "format": [
+        {
+            "position": "prefix",
+            "contains": "63**",
+            "count": 1
+        },
+        {
+            "position": "suffix",
+            "contains": "**",
+            "count": 1
+        }
+    ],
+    "length": 6
 }
 ```
 
@@ -319,9 +327,13 @@ Specifies whether the generated value should be alphanumeric (letters and number
 ```json
 "tracking_number": {
     "type": "number",
-    "format": {
-        "prefix": "TN"
-    },
+    "format": [
+        {
+            "position": "prefix",
+            "contains": "TN",
+            "count": 1
+        }
+    ],
     "length": 10,
     "alphanumeric": true
 }
