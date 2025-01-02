@@ -3,9 +3,13 @@
     "id": true,
     "type": "number",
     "unique": true,
-    "format": {
-      "prefix": "****"
-    },
+    "format": [
+      {
+        "position": "prefix",
+        "contains": "*",
+        "count": 4
+      }
+    ],
     "length": 6
   },
   "age": {
@@ -29,10 +33,17 @@
     "type": "number",
     "unique": true,
     "parent": "user_id",
-    "format": {
-      "prefix": "63**",
-      "suffix": "**"
-    },
+    "format": [
+      {
+        "position": "prefix",
+        "contains": "63**"
+      },
+      {
+        "position": "suffix",
+        "contains": "*",
+        "count": 2
+      }
+    ],
     "length": 6
   },
   "joined_date": {
@@ -72,7 +83,11 @@
   "loyalty_program_member": {
     "type": "boolean",
     "parent": "user_id",
-    "choices": [0, 1]
+    "choices": [0, 1],
+    "weight": {
+      "balanced": false,
+      "algorithm": "exponential"
+    }
   },
   "loyalty_points_redeemed": {
     "type": "number",
@@ -166,9 +181,13 @@
   "transaction_id": {
     "id": true,
     "type": "number",
-    "format": {
-      "prefix": "***"
-    },
+    "format": [
+      {
+        "position": "prefix",
+        "contains": "*",
+        "count": 3
+      }
+    ],
     "length": 8
   },
   "payment_status": {
@@ -266,9 +285,13 @@
     "id": true,
     "type": "number",
     "unique": true,
-    "format": {
-      "prefix": "***"
-    },
+    "format": [
+      {
+        "position": "prefix",
+        "contains": "*",
+        "count": 3
+      }
+    ],
     "length": 6
   },
   "released_date": {
@@ -333,9 +356,13 @@
     "alphanumeric": true,
     "case": "uppercase",
     "unique": true,
-    "format": {
-      "prefix": "***"
-    },
+    "format": [
+      {
+        "position": "prefix",
+        "contains": "*",
+        "count": 3
+      }
+    ],
     "length": 10
   },
   "customer_exp_rating": {
