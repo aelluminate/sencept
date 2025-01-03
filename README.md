@@ -1,8 +1,8 @@
-# Sencept
+# Sencept CLI
 
 ![version](https://img.shields.io/badge/version-v0.2.6-black?style=for-the-badge&labelColor=%231f1f1e&color=%23f3f4f0)
 
-**Sencept** is a *quite* powerful tool for generating high-quality synthetic data. The name blends "synthesis" and "concept," reflecting the project's focus on conceptualizing and synthesizing realistic datasets for training and evaluating machine learning models. With Sencept, you can create customizable, schema-driven synthetic data that mimics real-world scenarios, making it ideal for testing, development, and research.
+**Sencept** is a *not done yet* powerful command-line interface (CLI) tool designed to generate high-quality synthetic data. The name, a portmanteau of "synthesis" and "concept," reflects the project's core focus on conceptualizing and synthesizing realistic datasets for training and evaluating machine learning models. Sencept enables the creation of customizable, schema-driven synthetic data that accurately simulates real-world scenarios, making it an invaluable asset for testing, development, and research in machine learning.
 
 ## ✨ Features
 
