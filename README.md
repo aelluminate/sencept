@@ -28,10 +28,18 @@ Create a JSON schema file (e.g., `generate.json`) to define the structure of you
 {
     "user_id": {
         "type": "number",
-        "unique": true,
-        "format": {
-            "prefix": "****"
-        },
+        "format": [
+            {
+                "position": "prefix",
+                "contains": "63**",
+                "count": 1
+            },
+            {
+                "position": "suffix",
+                "contains": "**",
+                "count": 1
+            }
+        ],
         "length": 6
     },
     "age": {
